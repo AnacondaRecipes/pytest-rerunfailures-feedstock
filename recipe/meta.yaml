@@ -11,22 +11,30 @@ source:
 
 build:
   number: 0
+  skip: True  # [py<36]
   noarch: python
   script: "{{ PYTHON }} -m pip install . -vv"
 
 requirements:
   host:
     - pip
-    - pytest >=4.4
+    - pytest >=5.3
     - python
+    - setuptools >=40.0
+    - wheel
   run:
-    - pytest >=4.4
+    - pytest >=5.3
     - python
     - pip
+    - setuptools >=40.0
 
 test:
   imports:
     - pytest_rerunfailures
+  requires:
+    - pip
+  commands:
+    - pip check
 
 about:
   home: https://github.com/pytest-dev/pytest-rerunfailures
@@ -34,6 +42,7 @@ about:
   license_family: OTHER
   license_file: LICENSE
   summary: pytest plugin to re-run tests to eliminate flaky failures
+  dev_url: https://github.com/pytest-dev/pytest-rerunfailures
 
 extra:
   recipe-maintainers:
