@@ -11,7 +11,6 @@ source:
 
 build:
   number: 0
-  skip: True  # [py<36]
   noarch: python
   script: "{{ PYTHON }} -m pip install . -vv"
 
@@ -43,6 +42,7 @@ about:
   license_file: LICENSE
   summary: pytest plugin to re-run tests to eliminate flaky failures
   dev_url: https://github.com/pytest-dev/pytest-rerunfailures
+  doc_url: https://github.com/pytest-dev/pytest-rerunfailures/blob/master/README.rst
 
 extra:
   recipe-maintainers:
