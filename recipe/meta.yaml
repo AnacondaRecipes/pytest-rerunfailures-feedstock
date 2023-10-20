@@ -26,6 +26,7 @@ requirements:
     - python
     - pip
     - setuptools >=40.0
+    - py
 
 test:
   imports:
