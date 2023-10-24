@@ -1,5 +1,5 @@
 {% set name = "pytest-rerunfailures" %}
-{% set version = "10.1" %}
+{% set version = "12.0" %}
 
 package:
   name: "{{ name|lower }}"
@@ -7,10 +7,10 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 7617c06de13ee6dd2df9add7e275bfb2bcebbaaf3e450f5937cd0200df824273
+  sha256: 784f462fa87fe9bdf781d0027d856b47a4bfe6c12af108f6bd887057a917b48e
 
 build:
-  number: 1
+  number: 0
   noarch: python
   script: "{{ PYTHON }} -m pip install . -vv"
 
@@ -26,13 +26,13 @@ requirements:
     - python
     - pip
     - setuptools >=40.0
-    - py
 
 test:
   imports:
     - pytest_rerunfailures
   requires:
     - pip
+    - py
   commands:
     - pip check
 
