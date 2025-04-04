@@ -1,5 +1,5 @@
 {% set name = "pytest-rerunfailures" %}
-{% set version = "12.0" %}
+{% set version = "13.0" %}
 
 package:
   name: "{{ name|lower }}"
@@ -7,41 +7,46 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 784f462fa87fe9bdf781d0027d856b47a4bfe6c12af108f6bd887057a917b48e
+  sha256: e132dbe420bc476f544b96e7036edd0a69707574209b6677263c950d19b09199
 
 build:
   number: 0
-  skip: True # [py<38]
-  script: "{{ PYTHON }} -m pip install . -vv"
+  skip: True # [py<37]
+  script: {{ PYTHON }} -m pip install . -vv --no-build-isolation --no-deps
 
 requirements:
   host:
     - pip
-    - pytest >=5.3
     - python
     - setuptools >=40.0
     - wheel
   run:
-    - pytest >=5.3
     - python
-    - pip
-    - setuptools >=40.0
+    - packaging >=17.1
+    - pytest >=7
+  run_constrained:
+    - pytest-xdist >=2.3.0
 
 test:
   imports:
     - pytest_rerunfailures
   requires:
     - pip
-    - py
+  source_files:
+    - test_pytest_rerunfailures.py
   commands:
     - pip check
+    # Skipping tests that are known to fail due to improper class teardown between runs.
+    # https://github.com/pytest-dev/pytest-rerunfailures/issues/268
+    - pytest -vv . -k "not test_run_session_teardown_once_after_reruns"
 
 about:
   home: https://github.com/pytest-dev/pytest-rerunfailures
   license: MPL-2.0
-  license_family: OTHER
+  license_family: MOZILLA
   license_file: LICENSE
   summary: pytest plugin to re-run tests to eliminate flaky failures
+  description: pytest-rerunfailures is a plugin for pytest that re-runs tests to eliminate intermittent failures
   dev_url: https://github.com/pytest-dev/pytest-rerunfailures
   doc_url: https://github.com/pytest-dev/pytest-rerunfailures/blob/master/README.rst
 
