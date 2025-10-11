@@ -1,29 +1,28 @@
 {% set name = "pytest-rerunfailures" %}
-{% set version = "13.0" %}
+{% set version = "16.1" %}
 
 package:
-  name: "{{ name|lower }}"
-  version: "{{ version }}"
+  name: {{ name|lower }}
+  version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: e132dbe420bc476f544b96e7036edd0a69707574209b6677263c950d19b09199
+  url: https://pypi.org/packages/source/p/pytest-rerunfailures/pytest_rerunfailures-16.1.tar.gz
+  sha256: c38b266db8a808953ebd71ac25c381cb1981a78ff9340a14bcb9f1b9bff1899e
 
 build:
   number: 0
-  skip: True # [py<37]
+  skip: true  # [py<310]
   script: {{ PYTHON }} -m pip install . -vv --no-build-isolation --no-deps
 
 requirements:
   host:
     - pip
     - python
-    - setuptools >=40.0
-    - wheel
+    - setuptools >=40
   run:
     - python
     - packaging >=17.1
-    - pytest >=7
+    - pytest !=8.2.2,>=7.4
   run_constrained:
     - pytest-xdist >=2.3.0
 
