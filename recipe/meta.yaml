@@ -1,5 +1,5 @@
 {% set name = "pytest-rerunfailures" %}
-{% set version = "16.6" %}
+{% set version = "16.7" %}
 
 package:
   name: {{ name }}
@@ -7,23 +7,22 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name.replace('-', '_')}}-{{ version }}.tar.gz
-  sha256: 29dbfee46f542073c888e0ed4e81c51e15b9096f49a299eb1a759629c601684a
+  sha256: 6956ddfb65ca1d07e7e3d99e2c5359d82300f4cb062e6049563bd2c106f72d5c
 
 build:
   number: 0
   script: {{ PYTHON }} -m pip install . -vv --no-build-isolation --no-deps
-  skip: true # [py<310]
+  skip: true  # [py<310]
 
 requirements:
   host:
     - pip
     - python
-    - wheel
-    - setuptools >=61.0
+    - setuptools >=61
   run:
     - python
     - packaging >=17.1
-    - pytest >=8.2,!=8.2.2
+    - pytest !=8.2.2,>=8.2
 
 test:
   source_files:
